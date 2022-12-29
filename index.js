@@ -35,7 +35,6 @@ socket.on('connect', async () => {
   });
 
   messenger();
-
 });
 
 socket.on('MESSAGE', payload => {
