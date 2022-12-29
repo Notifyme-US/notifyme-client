@@ -1,7 +1,7 @@
 
 const inquirer = require('inquirer');
 
-const messengerCtor = (socket, session) => (async function messenger() {
+const messengerCtor = (socket, session, roomPrompt) => (async function messenger() {
   const answers = await inquirer.prompt([{
     type: 'input',
     name: 'input',

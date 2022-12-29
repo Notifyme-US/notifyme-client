@@ -1,20 +1,23 @@
+#!/usr/bin/env node
+
 'use strict';
 
 require('dotenv').config();
 const { io } = require('socket.io-client');
 const chalk = require('chalk');
-const inquirer = require('inquirer');
 
-const local = true;
-const SERVER = local ? process.env.SERVER_LOCAL : process.env.SERVER_DEPLOYED;
+// const local = false;
+// const SERVER = local ? process.env.SERVER_LOCAL : process.env.SERVER_DEPLOYED;
+
+const SERVER = 'http://notifyme.us-west-2.elasticbeanstalk.com';
 console.log('🚀 ~ file: index.js:10 ~ SERVER', SERVER);
 const socket = io(`${SERVER}/chat`);
+
 const session = {};
 
 const authPrompt = require('./src/authPrompt')(socket, SERVER);
 const roomPrompt = require('./src/roomPrompt')(socket, SERVER);
-const messenger = require('./src/messenger')(socket, session);
-
+const messenger = require('./src/messenger')(socket, session, roomPrompt);
 
 socket.on('connect', async () => {
   console.log('connected');
