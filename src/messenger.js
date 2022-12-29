@@ -19,17 +19,33 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
 
   const re = /^!(?!!)/;
   if(re.test(input)) {
-    const parsed = input.match(/[a-zA-Z0-9]+/g);
+    const parsed = input.match(/[\w]+/g);
     const cmd = parsed[0].toLowerCase();
-    const arg = parsed.length > 1 ? parsed[1] : session.userZip; // TODO replace '98034' with dynamically pulled user location
+    const arg = parsed.length > 1 ? parsed.slice(1) : session.userZip; // TODO replace '98034' with dynamically pulled user location
     if (cmd === 'weather') {
       socket.emit('WEATHER', { zip: arg });
     }
-    if (cmd === 'traffic') {
-      socket.emit('TRAFFIC', arg);
+    if (cmd === 'current_weather') {
+      socket.emit('CURRENT_WEATHER', { zip: arg });
     }
+    // if (cmd === 'traffic') {
+    //   if(arg.length < 2) {
+    //     console.log('Command requires 2 arguments');
+    //   } else {
+    //     socket.emit('TRAFFIC', arg);
+    //   }
+    // }
     if (cmd === 'events') {
-      socket.emit('EVENTS', arg);
+      if(arg.length < 2) {
+        console.log('Command requires 2 arguments');
+      } else {
+        const payload = {
+          cityName: arg[0],
+          state: arg[1],
+        };
+        console.log(payload);
+        socket.emit('EVENTS', payload);
+      }
     }
     if (cmd === 'subscribe') {
       const options = ['weather', 'events'];
