@@ -9,12 +9,12 @@ const local = true;
 const SERVER = local ? process.env.SERVER_LOCAL : process.env.SERVER_DEPLOYED;
 console.log('🚀 ~ file: index.js:10 ~ SERVER', SERVER);
 const socket = io(`${SERVER}/chat`);
+const session = {};
 
 const authPrompt = require('./src/authPrompt')(socket, SERVER);
 const roomPrompt = require('./src/roomPrompt')(socket, SERVER);
-const messenger = require('./src/messenger')(socket);
+const messenger = require('./src/messenger')(socket, session);
 
-const session = {};
 
 socket.on('connect', async () => {
   console.log('connected');
