@@ -28,6 +28,10 @@ socket.on('connect', async () => {
 
   session.room = await roomPrompt(session.roomList);
 
+  if(session.room === 'Commands'){
+    console.log(chalk.grey('Example Commands: \n !back - Return to Menu \n !weather - Receive 5 Day forecast for your area \n !weather <Zip Code> - Receive 5 Day forecast for another zip code \n !current_weather - Receive Current weather for your area \n !current_weather <Zip Code> - Receive Current weather for another zip code \n !events <nearest major city> <two character state code> - Receive 5 events in the upcoming week for that area \n !traffic <starting address seperated by underscores> <destination address seperated by underscores> - Receive Traffic info and best route to your destination from starting point \n \n '))
+  }
+
   socket.emit('JOIN', {
     username: session.username,
     room: session.room,
