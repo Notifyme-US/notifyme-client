@@ -54,6 +54,16 @@ module.exports = (socket, SERVER) => async function authPrompt() {
       },
       {
         type: 'input',
+        name: 'city',
+        message: 'city: ',
+      },
+      {
+        type: 'input',
+        name: 'state',
+        message: 'state: ',
+      },
+      {
+        type: 'input',
         name: 'zip',
         message: 'zip code: ',
       },
