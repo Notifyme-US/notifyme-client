@@ -1,4 +1,7 @@
-const messengerCtor = socket => (async function messenger() {
+
+const inquirer = require('inquirer');
+
+const messengerCtor = (socket, session) => (async function messenger() {
   const answers = await inquirer.prompt([{
     type: 'input',
     name: 'input',
@@ -18,7 +21,7 @@ const messengerCtor = socket => (async function messenger() {
   if(re.test(input)) {
     const parsed = input.match(/[a-zA-Z0-9]+/g);
     const cmd = parsed[0].toLowerCase();
-    const arg = parsed.length > 1 ? parsed[1] : '98034'; // TODO replace '98034' with dynamically pulled user location
+    const arg = parsed.length > 1 ? parsed[1] : session.userZip; // TODO replace '98034' with dynamically pulled user location
     if (cmd === 'weather') {
       socket.emit('WEATHER', { zip: arg });
     }
