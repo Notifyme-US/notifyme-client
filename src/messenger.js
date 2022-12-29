@@ -26,7 +26,7 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
       socket.emit('WEATHER', { zip: arg });
     }
     if (cmd === 'current_weather') {
-      socket.emit('WEATHER', { zip: arg });
+      socket.emit('CURRENT_WEATHER', { zip: arg });
     }
     // if (cmd === 'traffic') {
     //   if(arg.length < 2) {
@@ -39,7 +39,12 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
       if(arg.length < 2) {
         console.log('Command requires 2 arguments');
       } else {
-        socket.emit('EVENTS', arg[0], arg[1]);
+        const payload = {
+          cityName: arg[0],
+          state: arg[1],
+        };
+        console.log(payload);
+        socket.emit('EVENTS', payload);
       }
     }
     if (cmd === 'subscribe') {

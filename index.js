@@ -6,10 +6,9 @@ require('dotenv').config();
 const { io } = require('socket.io-client');
 const chalk = require('chalk');
 
-// const local = false;
-// const SERVER = local ? process.env.SERVER_LOCAL : process.env.SERVER_DEPLOYED;
+const SERVER = process.env.SERVER_LOCAL;
 
-const SERVER = 'http://notifyme.us-west-2.elasticbeanstalk.com';
+// const SERVER = 'http://notifyme.us-west-2.elasticbeanstalk.com';
 console.log('🚀 ~ file: index.js:10 ~ SERVER', SERVER);
 const socket = io(`${SERVER}/chat`);
 
