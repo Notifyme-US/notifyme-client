@@ -6,12 +6,15 @@ This repo is the client-side application for our travel chat/info server. It all
 
 ## Usage
 
-1. navigate to any preferred directory in which to install the github repo
+- Primary:
+  1. run `npx notifyme-client` in the command line
 
-2. `git clone https://github.com/Notifyme-US/notifyme-client.git`
-3. `cd notifyme-client`
-4. `npm i`
-5. `node index.js`
+- Alternate:
+  1. navigate to any preferred directory in which to install the github repo
+  2. `git clone https://github.com/Notifyme-US/notifyme-client.git`
+  3. `cd notifyme-client`
+  4. `npm i`
+  5. `node index.js`
 
 ## Commands
 
