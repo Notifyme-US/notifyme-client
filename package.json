@@ -1,6 +1,6 @@
 {
   "name": "notifyme-client",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "client-side application for interacting with the notifyme ecosystem",
   "main": "index.js",
   "bin": "index.js",

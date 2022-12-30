@@ -1,13 +1,13 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 
-module.exports = (socket, SERVER, session) => async function roomPrompt(roomChoices) {
+module.exports = (socket, SERVER, session) => async function roomPrompt() {
   const rooms = [
     {
       type: 'list',
       name: 'room',
       message: 'Which room would you like to join?',
-      choices: roomChoices,
+      choices: session.roomList,
     },
   ];
 
@@ -48,6 +48,6 @@ module.exports = (socket, SERVER, session) => async function roomPrompt(roomChoi
   if(room === 'Mod'){
     console.log(chalk.cyanBright('Welcome Moderators! Here you chat with other Moderators and discuss needs for our app.'))
   }
-
+  session.room = room;
   return room;
 };

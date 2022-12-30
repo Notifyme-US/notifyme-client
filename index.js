@@ -27,9 +27,7 @@ socket.on('connect', async () => {
   session.roomList = rooms;
   session.userZip = zip;
 
-  session.room = await roomPrompt(session.roomList);
-
-  
+  await roomPrompt(session.roomList);
 
   messenger();
 });
