@@ -36,5 +36,13 @@ module.exports = (socket, SERVER) => async function roomPrompt(roomChoices) {
     console.log(chalk.yellowBright('Welcome to Support! Here you can ask our wonderful support team about any questions about our application you may have.'))
   }
 
+  if(room === 'Admin'){
+    console.log(chalk.redBright('Welcome Admins! Here you chat with other Admins and discuss needs for our app.'))
+  }
+
+  if(room === 'Mod'){
+    console.log(chalk.cyanBright('Welcome Moderators! Here you chat with other Moderators and discuss needs for our app.'))
+  }
+
   return room;
 };
