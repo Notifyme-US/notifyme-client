@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 
-module.exports = (socket, SERVER) => async function roomPrompt(roomChoices) {
+module.exports = (socket, SERVER, session) => async function roomPrompt(roomChoices) {
   const rooms = [
     {
       type: 'list',
@@ -18,7 +18,7 @@ module.exports = (socket, SERVER) => async function roomPrompt(roomChoices) {
 
   socket.emit('JOIN', {
     username: session.username,
-    room: session.room,
+    room: room,
   });
 
   if(room === 'Commands'){
