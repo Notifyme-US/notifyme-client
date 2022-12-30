@@ -53,12 +53,22 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
     }
     if (cmd === 'subscribe') {
       const options = ['weather', 'events'];
-      console.log(arg);
       if(!options.includes(arg[0])) {
         console.log('error: not an option for subscription');
         return messenger();
       }
       socket.emit('SUBSCRIBE', {
+        username: session.username,
+        type: arg[0],
+      });
+    }
+    if (cmd === 'unsubscribe') {
+      const options = ['weather', 'events'];
+      if(!options.includes(arg[0])) {
+        console.log('error: not an option for unsubscription');
+        return messenger();
+      }
+      socket.emit('UNSUBSCRIBE', {
         username: session.username,
         type: arg[0],
       });
