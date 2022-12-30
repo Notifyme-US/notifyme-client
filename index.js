@@ -6,10 +6,10 @@ require('dotenv').config();
 const { io } = require('socket.io-client');
 const chalk = require('chalk');
 
-const SERVER = process.env.SERVER_LOCAL;
+// const SERVER = process.env.SERVER_LOCAL;
+const SERVER = 'http://notifyme.us-west-2.elasticbeanstalk.com';
 
-// const SERVER = 'http://notifyme.us-west-2.elasticbeanstalk.com';
-console.log('🚀 ~ file: index.js:10 ~ SERVER', SERVER);
+// console.log('🚀 ~ file: index.js:10 ~ SERVER', SERVER);
 const socket = io(`${SERVER}/chat`);
 
 const session = {};
@@ -19,6 +19,7 @@ const roomPrompt = require('./src/roomPrompt')(socket, SERVER);
 const messenger = require('./src/messenger')(socket, session, roomPrompt);
 
 socket.on('connect', async () => {
+  console.clear();
   console.log('connected');
 
   const { username, rooms, zip } = await authPrompt();
@@ -71,7 +72,7 @@ socket.on('RECEIVED', payload => { // string saying message received
   console.log('\n', chalk.green('Me:'), content);
 });
 
-socket.on('LEAVE', payload => {
+socket.on('NEW_LEAVE', payload => {
   console.log('\n\t', chalk.magenta(payload));
 });
 

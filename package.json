@@ -1,6 +1,6 @@
 {
   "name": "notifyme-client",
-  "version": "1.0.4",
+  "version": "1.2.0",
   "description": "client-side application for interacting with the notifyme ecosystem",
   "main": "index.js",
   "bin": "index.js",
@@ -25,6 +25,7 @@
     "chalk": "^4.1.2",
     "dotenv": "^16.0.3",
     "inquirer": "^8.2.5",
+    "jest": "^29.3.1",
     "socket.io-client": "^4.5.4"
   }
 }

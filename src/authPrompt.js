@@ -4,7 +4,6 @@ const axios = require('axios');
 
 
 module.exports = (socket, SERVER) => async function authPrompt() {
-  console.log('running authPrompt');
   const auth = {
     options: [
       {

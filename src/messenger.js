@@ -74,7 +74,9 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
       });
     }
     if (cmd === 'back') {
-       roomPrompt(session.roomList);
+      socket.emit('LEAVE');
+      console.clear();
+      await roomPrompt(session.roomList);
       return messenger();
     }
   }
