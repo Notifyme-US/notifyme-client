@@ -12,6 +12,8 @@ module.exports = (socket, SERVER) => async function roomPrompt(roomChoices) {
 
   const answers = await inquirer.prompt(rooms);
   const room = answers.room;
+  
+  console.clear();
 
   return room;
 };
