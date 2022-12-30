@@ -16,6 +16,11 @@ module.exports = (socket, SERVER) => async function roomPrompt(roomChoices) {
   
   console.clear();
 
+  socket.emit('JOIN', {
+    username: session.username,
+    room: session.room,
+  });
+
   if(room === 'Commands'){
     console.log(chalk.blueBright('Welcome to Commands! Please take a look at what you can do with some of our examples.'))
   }

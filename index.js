@@ -29,10 +29,7 @@ socket.on('connect', async () => {
 
   session.room = await roomPrompt(session.roomList);
 
-  socket.emit('JOIN', {
-    username: session.username,
-    room: session.room,
-  });
+  
 
   messenger();
 });
