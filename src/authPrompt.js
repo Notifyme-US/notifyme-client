@@ -92,7 +92,8 @@ module.exports = (socket, SERVER) => async function authPrompt() {
       }
       return response.data;
     } catch(e) {
-      console.log(e.message);
+      console.log('Invalid Login\n\n');
+      return authPrompt();
     }
   }
   if(authRoute === 'signup') {
