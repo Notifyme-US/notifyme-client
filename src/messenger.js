@@ -64,7 +64,8 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
       });
     }
     if (cmd === 'back') {
-      return roomPrompt(session.roomList);
+       roomPrompt(session.roomList);
+      return messenger();
     }
   }
   socket.emit('MESSAGE', payload);
