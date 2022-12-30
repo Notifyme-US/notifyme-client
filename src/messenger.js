@@ -9,6 +9,7 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
   }]);
   const { input } = answers;
   if(input === '\\q') {
+    process.exit();
     return;
   }
   process.stdout.moveCursor(0, -1);
@@ -20,15 +21,17 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
   const re = /^!(?!!)/;
   if(re.test(input)) {
     const parsed = input.match(/[\w]+/g);
+    if(!parsed) {
+      console.log(`Invalid command... (you typed "${input}")`);
+      return messenger();
+    }
     const cmd = parsed[0].toLowerCase();
-    const arg = parsed.length > 1 ? parsed.slice(1) : session.userZip; // TODO replace '98034' with dynamically pulled user location
+    const arg = parsed.length > 1 ? parsed.slice(1) : session.userZip;
     if (cmd === 'weather') {
       socket.emit('WEATHER', { zip: arg });
-    }
-    if (cmd === 'current_weather') {
+    } else if (cmd === 'current_weather') {
       socket.emit('CURRENT_WEATHER', { zip: arg });
-    }
-    if (cmd === 'traffic') {
+    } else if (cmd === 'traffic') {
       if(arg.length < 2) {
         console.log('Command requires 2 arguments');
       } else {        
@@ -38,8 +41,7 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
       };
         socket.emit('TRAFFIC', payload);
       }
-    }
-    if (cmd === 'events') {
+    } else if (cmd === 'events') {
       if(arg.length < 2) {
         console.log('Command requires 2 arguments');
       } else {
@@ -50,8 +52,7 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
         console.log(payload);
         socket.emit('EVENTS', payload);
       }
-    }
-    if (cmd === 'subscribe') {
+    } else if (cmd === 'subscribe') {
       const options = ['weather', 'events'];
       if(!options.includes(arg[0])) {
         console.log('error: not an option for subscription');
@@ -61,8 +62,7 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
         username: session.username,
         type: arg[0],
       });
-    }
-    if (cmd === 'unsubscribe') {
+    } else if (cmd === 'unsubscribe') {
       const options = ['weather', 'events'];
       if(!options.includes(arg[0])) {
         console.log('error: not an option for unsubscription');
@@ -72,15 +72,19 @@ const messengerCtor = (socket, session, roomPrompt) => (async function messenger
         username: session.username,
         type: arg[0],
       });
-    }
-    if (cmd === 'back') {
+    } else if (cmd === 'back') {
       socket.emit('LEAVE');
       console.clear();
-      await roomPrompt(session.roomList);
+      await roomPrompt();
+      return messenger();
+    } else {
+      console.log(`Invalid command... (you typed "${input}")`);
       return messenger();
     }
   }
-  socket.emit('MESSAGE', payload);
+  if(session.room !== 'Commands') {
+    socket.emit('MESSAGE', payload);
+  }
   messenger();
 });
 
